@@ -7,3 +7,11 @@
 * {
   font-family: 'Josefin Sans', sans-serif;
 }
+.animate-h-out{
+  height: 0;
+  transition: height ease-out .52s;
+}
+.animate-h-in{
+  height: 100%;
+  transition: height ease-out .52s;
+}

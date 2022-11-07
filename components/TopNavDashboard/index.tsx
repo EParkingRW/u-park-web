@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 const TopNavDashboard = () => {
 
@@ -16,12 +17,15 @@ const TopNavDashboard = () => {
             <input className={"placeholder-primary border-none focus:border-none w-full"} placeholder={"can’t find Garage? search it here!"}/>
             <span className="material-symbols-outlined rounded px-1 py-1 bg-primary text-white">search</span>
         </form>
-        <button className={"text-white flex items-center gap-3 bg-primary py-3 px-2 rounded-2xl"}>
+        <Link href={"/add_garage"}>
+            <button className={"text-white flex items-center gap-3 bg-primary py-3 px-2 rounded-2xl"}>
             <span>
                 Add new Garage
             </span>
-            <span className="material-symbols-outlined rounded px-1 py-1 bg-white/50 text-white">add</span>
-        </button>
+                <span className="material-symbols-outlined rounded px-1 py-1 bg-white/50 text-white">add</span>
+            </button>
+        </Link>
+
         <div className={"text-white flex items-center justify-between gap-1 bg-primary py-1 px-2 rounded-2xl min-w-[272px]"}>
             <span className="material-symbols-outlined rounded-full px-3 py-3 bg-white/50 text-white">person</span>
             <span>
