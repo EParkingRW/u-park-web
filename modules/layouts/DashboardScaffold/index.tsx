@@ -3,14 +3,14 @@ import TopNavDashboard from "../../../components/TopNavDashboard";
 
 const Scaffold = ({ children }: { children: any }) => {
     return (
-        <>
+        <div className={"mx-5"}>
             <TopNavDashboard />
-            <div>
+            <div className={"mt-5"}>
                 {children}
             </div>
 
 
-        </>
+        </div>
     );
 };
 
