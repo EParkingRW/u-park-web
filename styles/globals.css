@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import "popup_add_garage.css";
 
 @tailwind base;
 @tailwind components;
@@ -14,4 +15,10 @@
 .animate-h-in{
   height: 100%;
   transition: height ease-out .52s;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  position: absolute;
+  right: 0;
 }

@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-import GoogleMapReact from "google-map-react";
+import GoogleMapReact, {Coords} from "google-map-react";
 import UploadImage from "../../../components/UploadImage";
 
-const MapView = () => {
+const MapView = ({latitude,longitude, setCoordinate, currentLocation, setCurrentLocation}:
+                     {latitude:(number|undefined),longitude:(number|undefined),setCoordinate:Function, currentLocation:Coords,setCurrentLocation:Function}) => {
     const defaultProps = {
-        center: {lat:59.938043, lng:30.337157},
-        zoom: 9,
-        greatPlaceCoords: {lat: 59.724465, lng: 30.080121}
+        zoom: 14
     };
     const AnyReactComponent = ({ text }:any) => (
         <div style={{
@@ -24,21 +23,34 @@ const MapView = () => {
         </div>
     );
     const handleApiLoaded = (map:any, maps:any) => {
-        // use map and maps objects
+        navigator?.geolocation.getCurrentPosition(
+            ({ coords: { latitude: lat, longitude: lng } }) => {
+                const pos = { lat, lng };
+                setCurrentLocation(pos)
+            }
+        );
     };
     return <div className={"w-full h-full overflow-hidden rounded-3xl"}>
         <GoogleMapReact
+            onClick={(e) => {
+                console.log("error")
+                console.log("lat " + e.lat +"  long "+ e.lng)
+                setCoordinate(e.lat, e.lng)
+            }}
             bootstrapURLKeys={{ key:process.env.GOOGLE_MAP_KEY as string}}
             defaultZoom={defaultProps.zoom}
             yesIWantToUseGoogleMapApiInternals
-            defaultCenter={defaultProps.center}
+            defaultCenter={currentLocation}
             onGoogleApiLoaded={({ map, maps }:any) => handleApiLoaded(map, maps)}
         >
-            <AnyReactComponent
-                lat={59.955413}
-                lng={30.337844}
-                text="My Marker"
-            />
+            {
+                latitude && longitude ?
+                    <AnyReactComponent
+                    lat={latitude}
+                    lng={longitude}
+                    text="My Marker"
+                />:null
+            }
         </GoogleMapReact>
     </div>
 }
@@ -84,7 +96,7 @@ const SecondForm = () => {
             </span>
                 <input type={"number"} className={"p-4 rounded-xl w-full bg-[#DEE7FF]"} placeholder={"300"}/>
             </label>
-            <button type={"submit"} className={"px-12 bg-primary py-2 mt-20 text-white rounded-2xl self-center"}>Save</button>
+            <button type={"submit"} className={"px-12 bg-primary py-2 mt-2 md:mt-20 text-white rounded-2xl self-center"}>Save</button>
 
     </div>
     )
@@ -116,12 +128,33 @@ const FirstForm = () => {
 
 const AddGarageActivity = () => {
     const [current_content, setCurrent_content] = useState(0)
+    const [latitude, setLatitude] = useState<undefined|number>(undefined)
+    const [longitude, setLongitude] = useState<undefined|number>(undefined)
+    const [currentLocation, setCurrentLocation] = useState({ lat: -1.9580392673301357, lng: 30.069174678417752 })
+
+    const setCoordinate = (lat:number, long:number) => {
+        setLatitude(lat)
+        setLongitude(long)
+    }
     return <>
-    <div className={"flex md:gap-10 gap-2 h-full items-center"}>
-        <form id={"forms"} className={"w-full h-[90%] min-h-[500px]"}>
+    <div className={"flex flex-col md:flex-row md:gap-10 gap-2 h-full items-center"}>
+        <form id={"forms"} className={" w-full h-[90%] min-h-[500px]"}>
             <div id={"mad_choosing_id"} className={"overflow-hidden w-full "+ (current_content === 0? "animate-h-in":"animate-h-out")}>
-                <label>Garage location</label>
-                <MapView/>
+
+                <div className={"flex justify-between"}>
+                    <label>Garage location</label>
+                    <label>
+                        <span>Latitude:</span>
+                        <input value={latitude} onChange={(e:any) => setLatitude(e.type.value)}/>
+                    </label>
+                    <label>
+                        <span>Longitude:</span>
+                        <input value={longitude} onChange={(e:any) => setLongitude(e.type.value)}/>
+                    </label>
+
+
+                </div>
+                <MapView longitude={longitude} latitude={latitude} currentLocation={currentLocation} setCurrentLocation={setCurrentLocation} setCoordinate={setCoordinate}/>
             </div>
             <div id={"first_form_id"} className={"overflow-hidden w-full "+ (current_content === 1? "animate-h-in":"animate-h-out")}>
                 <label>Garage details</label>
@@ -133,7 +166,7 @@ const AddGarageActivity = () => {
             </div>
 
         </form>
-        <div className={"rounded-3xl flex flex-col gap-8 gap-2 p-5 bg-[#FFC7CD]/50 justify-center items-center"}>
+        <div className={"rounded-3xl flex flex-col gap-8 p-5 bg-[#FFC7CD]/50 justify-center items-center"}>
             <button
                 onClick={() => {setCurrent_content(i => i===0?0 : i-1)}}
                 className="material-symbols-outlined bg-white rounded p-4 font-bold text-6xl text-primary disabled:bg-gray-100 disabled:text-gray-200" disabled={(current_content === 0)}>arrow_upward
