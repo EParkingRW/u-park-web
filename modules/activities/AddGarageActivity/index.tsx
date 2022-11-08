@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import GoogleMapReact from "google-map-react";
+import UploadImage from "../../../components/UploadImage";
 
 const MapView = () => {
     const defaultProps = {
@@ -42,9 +43,48 @@ const MapView = () => {
     </div>
 }
 const SecondForm = () => {
+    const [files, setFiles] = useState([])
+    const hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     return (
-        <div className={"w-full h-full bg-red-800 flex flex-col justify-center px-2 md:px-10 xl:px-96"}>
+        <div className={"w-full h-full flex flex-col justify-center px-2 md:px-10 xl:px-96"}>
+            <label className={"flex flex-col"}>
+            <span>
+                Image
+            </span>
+                <UploadImage updateFilesCb={setFiles} multiple={false}/>
+            </label>
+            <label className={"flex flex-col"}>
+            <span>
+                Hour fees
+            </span>
+                <input type={"number"} className={"p-4 rounded-xl w-full bg-[#DEE7FF]"} placeholder={"600"}/>
+            </label>
+            <div className={"flex justify-between gap-5"}>
+                <label className={"flex flex-col w-full"}>
+                    <span>
+                        Start time
+                    </span>
+                    <select className={"p-4 rounded-xl w-full bg-[#DEE7FF]"}>
+                        {hours.map(hour => <option key={"hour_"+hour} value={hour} className={""}>{hour}</option>)}
+                    </select>
+                </label>
+                <label className={"flex flex-col w-full"}>
+                    <span>
+                        End time
+                    </span>
+                    <select className={"p-4 rounded-xl w-full bg-[#DEE7FF]"}>
+                        {hours.map(hour => <option key={"hour_"+hour} value={hour} className={""}>{hour}</option>)}
+                    </select>
+                </label>
 
+            </div>
+            <label className={"flex flex-col"}>
+            <span>
+                Slots
+            </span>
+                <input type={"number"} className={"p-4 rounded-xl w-full bg-[#DEE7FF]"} placeholder={"300"}/>
+            </label>
+            <button type={"submit"} className={"px-12 bg-primary py-2 mt-20 text-white rounded-2xl self-center"}>Save</button>
 
     </div>
     )
@@ -77,7 +117,7 @@ const FirstForm = () => {
 const AddGarageActivity = () => {
     const [current_content, setCurrent_content] = useState(0)
     return <>
-    <div className={"flex md:gap-10 gap-2 h-full relative items-center relative"}>
+    <div className={"flex md:gap-10 gap-2 h-full items-center"}>
         <form id={"forms"} className={"w-full h-[90%] min-h-[500px]"}>
             <div id={"mad_choosing_id"} className={"overflow-hidden w-full "+ (current_content === 0? "animate-h-in":"animate-h-out")}>
                 <label>Garage location</label>
