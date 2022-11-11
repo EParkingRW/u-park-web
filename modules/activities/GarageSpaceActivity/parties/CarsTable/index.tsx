@@ -17,12 +17,12 @@ const CarsTable = () => {
                 </div>
             </div>
             <table className="table-auto w-full border-collapse mt-20">
-                <thead className={"text-gray-600"}>
+                <thead className={"text-white/70 bg-primary/50 "}>
                 <tr>
-                    <th className={"p-3 font-bold uppercase bg-gray-200  border border-gray-300 hidden lg:table-cell"}>Plate number</th>
-                    <th className={"p-3 font-bold uppercase bg-gray-200  border border-gray-300 hidden lg:table-cell"}>Entrance time</th>
-                    <th className={"p-3 font-bold uppercase bg-gray-200  border border-gray-300 hidden lg:table-cell"}>total min</th>
-                    <th className={"p-3 font-bold uppercase bg-gray-200  border border-gray-300 hidden lg:table-cell"}>Money</th>
+                    <th className={"p-3 font-bold uppercase border border-gray-300 hidden lg:table-cell"}>Plate number</th>
+                    <th className={"p-3 font-bold uppercase  border border-gray-300 hidden lg:table-cell"}>Entrance time</th>
+                    <th className={"p-3 font-bold uppercase  border border-gray-300 hidden lg:table-cell"}>total min</th>
+                    <th className={"p-3 font-bold uppercase  border border-gray-300 hidden lg:table-cell"}>Money</th>
 
 
                 </tr>
