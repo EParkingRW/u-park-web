@@ -9,6 +9,9 @@ import Constants from "../../../system/constants";
 import Secure from "../../../system/helpers/secureLs";
 import {useRouter} from "next/router";
 import swal from "sweetalert";
+import Keys from "../../../system/constants/keys";
+import {useData} from "../../context/DataContext";
+import {getHeaders} from "../../../system/constants/config";
 
 
 const fields = {
@@ -21,6 +24,7 @@ const schema = joi.object(fields);
 const LoginActivity = () => {
     const [loading, setLoading] = useState(false)
     const router = useRouter();
+    const { setProfile } = useData();
     const {
         register,
         handleSubmit,
@@ -33,14 +37,24 @@ const LoginActivity = () => {
     });
 
 
+    async function getAndSetProfile(){
+        axios.get(Constants.BACKEND_URL + Constants.endpoints.PROFILE, getHeaders()).then(response =>{
+            console.log("response", response.data.profile)
+            setProfile({...response.data.profile})
+            Secure.set(Keys.USER_INFO as string, { ...response.data.profile });
+        }).catch(error =>{
+           console.error("error", error)
+        });
+    }
     const onSubmit = async (query: any) => {
-        console.log(query)
         axios.post(Constants.BACKEND_URL + Constants.endpoints.LOGIN, {...query}).then(response =>{
 
             const {
-                data: { token, user },
+                data: { token },
             } = response;
             Secure.setToken(token);
+            getAndSetProfile()
+
 
             router.push("/dashboard")
         }).catch(error => {
