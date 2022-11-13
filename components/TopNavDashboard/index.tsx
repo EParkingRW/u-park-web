@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import {useData} from "../../modules/context/DataContext";
+import UserMenu from "../UserMenu";
 
 const TopNavDashboard = () => {
     const { profile } = useData();
@@ -61,13 +62,7 @@ const TopNavDashboard = () => {
             </button>
         </Link>
 
-        <div className={"text-white flex items-center justify-between gap-1 bg-primary py-1 px-2 rounded-2xl min-w-[272px]"}>
-            <span className="material-symbols-outlined rounded-full px-3 py-3 bg-white/50 text-white">person</span>
-            <span>
-                {profile?.userName}
-            </span>
-            <button className="material-symbols-outlined rounded px-1 py-1 text-3xl text-white">arrow_drop_down</button>
-        </div>
+        <UserMenu profile={profile}/>
 
 
     </div>
