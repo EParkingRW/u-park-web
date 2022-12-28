@@ -1,7 +1,10 @@
 import Secure from "../../helpers/secureLs";
 
 const Config = {
-    getHeaders
+    getHeaders,
+    paymentRate:23,
+    minimumMoneyToPay:300,
+    totalSlots: 560,
 }
 export default Config
 

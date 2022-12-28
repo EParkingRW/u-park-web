@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
-import Link from "next/link";
 import { useRouter } from 'next/router';
 import {useData} from "../../modules/context/DataContext";
 import UserMenu from "../UserMenu";
+import Modal from "../Modal";
 
 const TopNavDashboard = () => {
     const { profile } = useData();
@@ -11,6 +11,7 @@ const TopNavDashboard = () => {
     const [pathName,setPathName] = useState<string|undefined>(undefined)
     const [isAdminPage, setIsAdminPage] = useState(false)
     const [hideSearch, setHideSearch] = useState(false)
+    const [showModal, setShowModal] = React.useState(false);
 
     useEffect(()=>{
         setIsAdminPage(false)
@@ -37,6 +38,14 @@ const TopNavDashboard = () => {
 
         }
     },[router])
+    const handleAddNew = () =>{
+        if(!isAdminPage){
+            router.push("/add_garage").catch(error => {console.error(error)})
+        }
+        else {
+            setShowModal(true)
+        }
+    }
 
     return <div className={"w-full flex justify-between pt-1 flex-wrap gap-2"}>
         <div className={"flex items-center"}>
@@ -53,15 +62,13 @@ const TopNavDashboard = () => {
             <span className="material-symbols-outlined rounded px-1 py-1 bg-primary text-white">search</span>
         </form>
         }
-        <Link href={"/add_garage"}>
-            <button className={"text-white flex items-center gap-3 bg-primary py-3 px-2 rounded-2xl"}>
+        <button onClick={()=> {handleAddNew()}} className={"text-white flex items-center gap-3 bg-primary py-3 px-2 rounded-2xl"}>
             <span>
                 Add new {isAdminPage?"Company":"Garage"}
             </span>
-                <span className="material-symbols-outlined rounded px-1 py-1 bg-white/50 text-white">add</span>
-            </button>
-        </Link>
-
+            <span className="material-symbols-outlined rounded px-1 py-1 bg-white/50 text-white">add</span>
+        </button>
+        <Modal showModal={showModal} setShowModal={setShowModal}/>
         <UserMenu profile={profile}/>
 
 
