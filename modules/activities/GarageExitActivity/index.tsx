@@ -1,4 +1,8 @@
-const GarageExitActivity = () => {
+import vehicleInterface from "../../../interfaces/vehicle.interface";
+import CustomImage from "../../../components/CustomImage";
+import Image from "next/image";
+
+const GarageExitActivity = ({recentVehicleOut}: { recentVehicleOut: vehicleInterface | null }) => {
     return (
         <div className={"flex flex-col gap-2 w-full"}>
             <div className={"flex w-full justify-between gap-2 flex-wrap"}>
@@ -23,32 +27,48 @@ const GarageExitActivity = () => {
 
             </div>
             <h3 className={"text-primary text-3xl"}>
-                Recent car
+                Recent car /Entrance
             </h3>
-            <div className={"w-full flex gap-2 bg-[#FFE3E6] rounded-xl items-center px-3 py-3"}>
-                <div className={"h-96 bg-red-800 w-full rounded-2xl"}>
+            {
+                recentVehicleOut ? (
+                    <div className={"w-full flex gap-2 bg-[#FFE3E6] rounded-xl items-center justify-evenly px-3 py-3"}>
+                        <div className="max-w-sm bg-primary/30 rounded-xl overflow-hidden shadow-lg">
+                            <Image src={recentVehicleOut?.imageUrl || ""} alt="" width={400} height={200}/>
+                            <div className="px-6 py-4">
+                                <div className="font-bold text-xl mb-2">{recentVehicleOut?.plateText}</div>
+                            </div>
+                            <div className="px-6 pt-4 pb-2">
+                                <span
+                                    className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{recentVehicleOut?.createdAt.toDateString()}</span>
+                            </div>
+                        </div>
+                        <div className={"h-full flex flex-col justify-center items-center text-white px-6 gap-3"}>
+                            <div
+                                className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-[#C32C7C] to-[#850334]"}>
+                                <p>Entrance time</p>
+                                <p className={"text-6xl"}>0:29</p>
+                                <p>On 23.06.2022</p>
+                            </div>
+                            <div
+                                className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-cyan-500 to-blue-500"}>
+                                <p>Computed cash</p>
+                                <p className={"text-6xl"}>300</p>
+                                <p>Rwf</p>
+                            </div>
+                            <div
+                                className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-[#C32C7C] to-[#850334]"}>
+                                <p>Hours</p>
+                                <p className={"text-6xl"}>3.1</p>
+                                <p>186 min</p>
+                            </div>
 
-                </div>
-                <div className={"h-full flex  flex-col w-full justify-center items-center text-white px-6 gap-3"}>
-                    <div className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-[#C32C7C] to-[#850334]"}>
-                        <p>Entrance time</p>
-                        <p className={"text-6xl"}>0:29</p>
-                        <p>On 23.06.2022</p>
-                    </div>
-                    <div className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-cyan-500 to-blue-500"}>
-                        <p>Computed cash</p>
-                        <p className={"text-6xl"}>300</p>
-                        <p>Rwf</p>
-                    </div>
-                    <div className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-[#C32C7C] to-[#850334]"}>
-                        <p>Hours</p>
-                        <p className={"text-6xl"}>3.1</p>
-                        <p>186 min</p>
-                    </div>
 
-
-                </div>
-            </div>
+                        </div>
+                    </div>
+                ):(<div className="w-full rounded-xl text-center">
+                    No recent car
+                </div>)
+            }
         </div>
 
     )

@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
+  images: {
+    domains: ['localhost','res.cloudinary.com'],
+  },
   env:{
     GOOGLE_MAP_KEY:process.env.GOOGLE_MAP_KEY,
     REACT_APP_ACCESS_TOKEN:process.env.REACT_APP_ACCESS_TOKEN,

@@ -1,4 +1,7 @@
-const GarageEntranceActivity = () => {
+import vehicleInterface from "../../../interfaces/vehicle.interface";
+import Image from "next/image";
+
+const GarageEntranceActivity = ({recentVehicleIn}:{recentVehicleIn:vehicleInterface | null}) => {
     return (
         <div className={"flex flex-col gap-2 w-full"}>
             <div className={"flex w-full justify-between gap-2 flex-wrap"}>
@@ -23,13 +26,28 @@ const GarageEntranceActivity = () => {
 
             </div>
             <h3 className={"text-primary text-3xl"}>
-                Recent car
+                Recent car /Entrance
             </h3>
-            <div className={"w-full flex gap-2 bg-[#FFE3E6] rounded-xl items-center px-3 py-3"}>
-                <div className={"h-96 bg-red-800 w-full rounded-2xl"}>
+            {
+                recentVehicleIn ? (
+                    <div className={"w-full flex gap-2 bg-[#FFE3E6] rounded-xl items-center px-3 py-3"}>
+                        <div className={"h-96 bg-red-800 w-full rounded-2xl relative flex flex-wrap"}>
+                            <Image width={400} height={200} src={recentVehicleIn?.imageUrl || ""} alt={""}/>
 
-                </div>
-            </div>
+                            <div className="flex flex-col ga-5 flex-1 self-center pr-5">
+                                <div className="w-full max-w-[500px] mx-auto py-12 text-white text-center rounded-xl bg-primary self-start">
+                                    <p>Plate number</p>
+                                    <p>{recentVehicleIn?.plateText}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ):(
+                    <div className="w-full rounded-xl text-center">
+                        No recent car
+                    </div>
+                )
+            }
         </div>
 
     )

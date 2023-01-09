@@ -1,5 +1,8 @@
 import Image from "next/image";
-import React, {useState} from "react";
+import React from "react";
+import garageEnum from "../../interfaces/Garage.enum";
+import GarageNav from "../../interfaces/Garage.enum";
+import {useRouter} from "next/router";
 
 const Line_separator = () => {
     const light_height = 'h-[60px]'
@@ -11,29 +14,38 @@ const Line_separator = () => {
         </div>
     )
 }
-const Button_style = ({text, icon = 'grid_view'}:{text:string, icon?:string}) => {
+const Button_style = ({active, text, icon = 'grid_view', onClick}:{text:string, active:boolean, icon?:string, onClick?:()=>void}) => {
     return (
-        <button className={"hover:bg-primary/10 w-full flex flex-col gap-2 text-primary items-center rounded-xl border-primary border-2 px-10 py-2"}>
+        <button onClick={() => onClick && onClick()}
+                className={"w-full flex flex-col gap-2 items-center rounded-xl border-primary border-2 px-10 py-2 " + (active?"bg-primary/90 hover:bg-primary text-white":"text-primary hover:bg-primary/10")}>
             <span className="material-symbols-outlined">{icon}</span>
             <span className={""}> {text}</span>
         </button>
     )
 }
 
-const SideNavigation = () => {
-
+const SideNavigation = ({activeTab, garageId}:{activeTab:garageEnum, garageId:string}) => {
+    const router = useRouter();
 
     return <div className={"flex flex-col justify-between h-full items-center"}>
-        <Button_style text={"Dashboard"}/>
+        <Button_style active={activeTab === GarageNav.DASHBOARD} text={"Dashboard"}
+                      onClick={()=>{router.push(`/garage_view/${garageId}?tab=${garageEnum.DASHBOARD}`).catch(e => console.error(e))}}
+        />
         <Line_separator/>
 
-        <Button_style text={"Entrance"} icon={"commute"}/>
+        <Button_style active={activeTab === GarageNav.ENTRANCE} text={"Entrance"} icon={"commute"}
+                      onClick={()=>{router.push(`/garage_view/${garageId}?tab=${garageEnum.ENTRANCE}`).catch(e => console.error(e))}}
+        />
         <Line_separator/>
 
-        <Button_style text={"Exit"} icon={"garage"}/>
+        <Button_style active={activeTab === GarageNav.EXIT} text={"Exit"} icon={"garage"}
+                      onClick={()=>{router.push(`/garage_view/${garageId}?tab=${garageEnum.EXIT}`).catch(e => console.error(e))}}
+        />
         <Line_separator/>
 
-        <Button_style text={"Space"} icon={"space_dashboard"}/>
+        <Button_style active={activeTab === GarageNav.SPACE} text={"Space"} icon={"space_dashboard"}
+                      onClick={()=>{router.push(`/garage_view/${garageId}?tab=${garageEnum.SPACE}`).catch(e => console.error(e))}}
+        />
 
     </div>
 }
