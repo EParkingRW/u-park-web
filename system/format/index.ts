@@ -15,3 +15,11 @@ export const convertToSlug = (param: string) => {
     .replace(/^-+|-+$/g, '');
   return url;
 };
+
+export const removeQuote = (text: string | null) => {
+  if (!text) {
+    return null;
+  }
+  return text.replace(/"/g, '');
+};
+

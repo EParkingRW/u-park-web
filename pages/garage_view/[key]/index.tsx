@@ -4,6 +4,7 @@ import {GetServerSideProps} from "next";
 import axios from "axios";
 import Constants from "../../../system/constants";
 import {garageShape} from "../../../modules/context/DataContext";
+import garageEnum from "../../../interfaces/Garage.enum";
 
 const garageView = ({garage,tab}:{garage:garageShape, tab:string}) => {
     //http://localhost:3000/garage_view/58d9370a-6b6f-4441-b1c9-cc2a2fb88454?tab=4
@@ -35,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({query, params}) =>
     return {
         props: {
             garage:garage,
-            tab:query.tab,
+            tab:query.tab || garageEnum.DASHBOARD,
         },
     };
 };

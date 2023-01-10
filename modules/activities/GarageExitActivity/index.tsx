@@ -1,8 +1,17 @@
 import vehicleInterface from "../../../interfaces/vehicle.interface";
-import CustomImage from "../../../components/CustomImage";
 import Image from "next/image";
+import {garageShape} from "../../context/DataContext";
 
-const GarageExitActivity = ({recentVehicleOut}: { recentVehicleOut: vehicleInterface | null }) => {
+const GarageExitActivity = ({recentVehicleOut, garage}: { recentVehicleOut: vehicleInterface | null, garage:garageShape|null }) => {
+    function computeCash(){
+        return "-"
+    }
+    function computeHours(){
+        return "-"
+    }
+    function computeMinutes(){
+        return "-"
+    }
     return (
         <div className={"flex flex-col gap-2 w-full"}>
             <div className={"flex w-full justify-between gap-2 flex-wrap"}>
@@ -21,7 +30,7 @@ const GarageExitActivity = ({recentVehicleOut}: { recentVehicleOut: vehicleInter
                         Available slots
                     </span>
                     <p className={"text-6xl"}>
-                        12
+                        {(garage?.slots || 0) - (garage?.takenSlots || 0)}
                     </p>
                 </div>
 
@@ -46,20 +55,22 @@ const GarageExitActivity = ({recentVehicleOut}: { recentVehicleOut: vehicleInter
                             <div
                                 className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-[#C32C7C] to-[#850334]"}>
                                 <p>Entrance time</p>
-                                <p className={"text-6xl"}>0:29</p>
-                                <p>On 23.06.2022</p>
+                                <p className={"text-6xl"}>{
+                                    recentVehicleOut?.createdAt.getHours()}
+                                    :{recentVehicleOut?.createdAt.getMinutes()}</p>
+                                <p>{recentVehicleOut?.createdAt.toDateString()}</p>
                             </div>
                             <div
                                 className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-cyan-500 to-blue-500"}>
                                 <p>Computed cash</p>
-                                <p className={"text-6xl"}>300</p>
+                                <p className={"text-6xl"}>{computeCash()}</p>
                                 <p>Rwf</p>
                             </div>
                             <div
                                 className={"rounded-2xl justify-center items-center flex w-[331px] relative h-[176px] flex-col bg-gradient-to-r from-[#C32C7C] to-[#850334]"}>
                                 <p>Hours</p>
-                                <p className={"text-6xl"}>3.1</p>
-                                <p>186 min</p>
+                                <p className={"text-6xl"}>{computeHours()}</p>
+                                <p>{computeMinutes()} min</p>
                             </div>
 
 

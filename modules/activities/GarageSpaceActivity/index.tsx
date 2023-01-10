@@ -1,6 +1,7 @@
 import CarsTable from "./parties/CarsTable";
+import {garageShape} from "../../context/DataContext";
 
-const GarageSpaceActivity = () => {
+const GarageSpaceActivity = ({garage}:{garage:garageShape|null}) => {
     return (
         <div className={"flex flex-col gap-2 w-full"}>
             <div className={"flex w-full justify-between gap-2 flex-wrap"}>
@@ -19,7 +20,7 @@ const GarageSpaceActivity = () => {
                         Available slots
                     </span>
                     <p className={"text-6xl"}>
-                        12
+                        {(garage?.slots || 0) - (garage?.takenSlots || 0)}
                     </p>
                 </div>
 

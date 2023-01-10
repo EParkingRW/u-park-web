@@ -1,17 +1,18 @@
 import vehicleInterface from "../../../interfaces/vehicle.interface";
 import Image from "next/image";
+import {garageShape} from "../../context/DataContext";
 
-const GarageEntranceActivity = ({recentVehicleIn}:{recentVehicleIn:vehicleInterface | null}) => {
+const GarageEntranceActivity = ({recentVehicleIn, garage}:{recentVehicleIn:vehicleInterface | null, garage:garageShape|null}) => {
     return (
         <div className={"flex flex-col gap-2 w-full"}>
             <div className={"flex w-full justify-between gap-2 flex-wrap"}>
                 <div
                     className={"rounded-3xl items-center text-white justify-evenly bg-primary w-[443px] h-[224.5px] flex flex-col"}>
                 <span>
-                    Exited vehicle
+                    Slots
                 </span>
                     <p className={"text-6xl"}>
-                        559
+                        {garage?.slots}
                     </p>
                 </div>
                 <div
@@ -20,7 +21,7 @@ const GarageEntranceActivity = ({recentVehicleIn}:{recentVehicleIn:vehicleInterf
                         Total vehicles in
                     </span>
                     <p className={"text-6xl"}>
-                        12
+                        {garage?.takenSlots}
                     </p>
                 </div>
 
