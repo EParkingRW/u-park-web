@@ -1,45 +1,47 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/require-default-props */
 import Image, { ImageProps } from 'next/image';
 import React from 'react';
 
-const CustomImage = (props: ImageProps) => {
-  const { alt } = props;
-  const errorImage = '/asserts/images/placeholder.png';
-  const [src, setSrc] = React.useState<string>(props.src as string);
+interface ICustomImage extends ImageProps {
+  errorImage?: string;
+}
+
+const CustomImage = (props: ICustomImage) => {
+  const { alt, src: propsSrc, blurDataURL } = props;
+  const errorImage = props.errorImage || '/asserts/images/placeholder.png';
+  const [src, setSrc] = React.useState(propsSrc);
 
   React.useEffect(() => {
-    setSrc(props.src as string);
-  }, [props.src]);
+    setSrc(propsSrc);
+  }, [propsSrc]);
 
   if (!src) {
     return null;
   }
 
-  let image: string = src || '';
-  image = image.startsWith('/uploads') ? image : `/uploads/${image}`;
+  let imageUrl = `${src}`;
 
-  let imageUrl = image;
-
-  if (
-    imageUrl.slice(0, 1) !== '/' &&
-    imageUrl.slice(0, 3) !== 'http'
-  ) {
-    imageUrl = `/${src}`;
+  if (imageUrl.slice(0, 1) !== '/' && imageUrl.slice(0, 3) !== 'http') {
+    imageUrl = `/uploads/${src}`;
   }
 
   return (
-    <Image
-      {...props}
-      alt={alt}
-      src={imageUrl}
-      onError={() => {
-        setSrc(errorImage);
-      }}
-      onLoadingComplete={result => {
-        if (result.naturalWidth === 0) {
-          setSrc(errorImage);
-        }
-      }}
-    />
+      <Image
+          {...props}
+          alt={alt}
+          src={src}
+          onError={() => {
+            setSrc(errorImage);
+          }}
+          onLoadingComplete={result => {
+            if (result.naturalWidth === 0) {
+              setSrc(errorImage);
+            }
+          }}
+          blurDataURL={blurDataURL || '/images/zaddi/logo.svg'}
+          placeholder="blur"
+      />
   );
 };
 

@@ -72,12 +72,12 @@ const UserMenu = ({profile}:any) => {
                     </div>
                     <ul>
                         <li>
-                            <Link href="/">
+                            <Link href="/dashboard">
                                 <button
                                     className="font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3"
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
                                 >
-                                    Settings
+                                    dashboard
                                 </button>
                             </Link>
                         </li>

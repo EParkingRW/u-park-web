@@ -7,7 +7,7 @@ const status = {
 };
 const Constants = {
     endpoints,
-    BACKEND_URL:process.env.LOCAL_BACKEND_URL,
+    BACKEND_URL:process.env.DEFAULT_API,
     status,
 }
 

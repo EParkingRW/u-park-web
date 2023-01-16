@@ -12,6 +12,7 @@ import swal from "sweetalert";
 import Keys from "../../../system/constants/keys";
 import {useData} from "../../context/DataContext";
 import {getHeaders} from "../../../system/constants/config";
+import Link from "next/link";
 
 
 const fields = {
@@ -65,14 +66,19 @@ const LoginActivity = () => {
 
     return<>
         <div className={"flex flex-col w-[380px] h-[582px] gap-2 bg-white rounded-2xl items-center py-5 px-5"}>
-            <Image
-                width={48} height={48}
-                src={"/asserts/images/u_park_logo.svg"} alt={""}/>
-            <span className={"text-[#A4A6B3] bold"}>
+            <Link  href="/">
+                <Image
+                    width={48} height={48}
+                    src={"/asserts/images/u_park_logo.svg"} alt={""}/>
+            </Link>
+            <Link href="/">
+                <span className={"text-[#A4A6B3] bold"}>
                 C Park
             </span>
+            </Link>
+
             <span className={"text-2xl mt-5"}>
-                Log In to U park
+                Log In to C park
             </span>
             <span className={"text-[#A4A6B3]"}>
                 Enter your email and password below
@@ -110,7 +116,10 @@ const LoginActivity = () => {
             </form>
             <span>
                 <span>Don’t have an account?</span>
-                <span className={"cursor-pointer pl-1 text-primary"}>Sign up</span>
+                <Link href="/signup">
+                    <span className={"cursor-pointer pl-1 text-primary"}>Sign up</span>
+                </Link>
+
             </span>
         </div>
     </>
