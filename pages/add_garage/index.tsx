@@ -5,7 +5,7 @@ const AddGaragePage = () => {
     return <>
         <header>
             <title>
-                add garage
+                add Parking
             </title>
         </header>
         <DashboardScaffold>

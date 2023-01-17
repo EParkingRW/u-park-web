@@ -64,7 +64,7 @@ const TopNavDashboard = () => {
         }
         <button onClick={()=> {handleAddNew()}} className={"text-white flex items-center gap-3 bg-primary py-3 px-2 rounded-2xl"}>
             <span>
-                Add new {isAdminPage?"Company":"Garage"}
+                Add new {isAdminPage?"Company":"Parking"}
             </span>
             <span className="material-symbols-outlined rounded px-1 py-1 bg-white/50 text-white">add</span>
         </button>
