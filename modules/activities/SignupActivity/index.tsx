@@ -8,8 +8,6 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import {formatJoiErorr} from "../../../system/format";
 import {useForm} from "react-hook-form";
 
-
-
 const fields = {
     fullName: joi.string().required(),
     userName: joi.string().required(),
@@ -38,25 +36,7 @@ const SignupActivity = () => {
         resolver: joiResolver(schema),
     });
 
-    // const [formData, setFormData] = useState({
-    //     fullName: '',
-    //     userName: '',
-    //     email: '',
-    //     password: '',
-    //     company:''
-    //   });
-    
-    //   const handleChange = (event:any) => {
-    //     setFormData({
-    //       ...formData,
-    //       [event.target.name]: event.target.value
-    //     });
-    //   }
-    
       const onSubmit = async (query: any) => {
-        //event.preventDefault();
-        console.log("quee", query)
-        // query.delete('confirmPassword');
         delete query.confirmPassword;
         axios.post(Constants.BACKEND_URL + Constants.endpoints.SIGNUP, {...query})
           .then(response => {
