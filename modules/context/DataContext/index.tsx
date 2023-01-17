@@ -63,10 +63,11 @@ const DataProvider = ({children}:any) =>{
 
     React.useEffect(() =>{
         const user = Secure.get(Keys.USER_INFO as string);
+        console.log("user", user)
         if (user) {
             setProfile((prev: any) => {
                 if (!prev) {
-                    return user;
+                    return JSON.parse(user);
                 }
                 return prev;
             });

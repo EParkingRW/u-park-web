@@ -4,11 +4,6 @@ import React from 'react';
 import {useData} from "../../../modules/context/DataContext";
 import DropChildren from "../../DropChildren";
 import CustomImage from "../../CustomImage";
-import axios from "axios";
-import Constants from "../../../system/constants";
-import {getHeaders} from "../../../system/constants/config";
-import Secure from "../../../system/helpers/secureLs";
-import keys from "../../../system/constants/keys";
 import {useRouter} from "next/router";
 
 const UserProfile = () => {

@@ -294,7 +294,7 @@ const AddGarageActivity = () => {
                 <MapView longitude={longitude} latitude={latitude} currentLocation={currentLocation} setCurrentLocation={setCurrentLocation} setCoordinate={setCoordinate}/>
             </div>
             <div id={"first_form_id"} className={"overflow-hidden w-full "+ (current_content === 1? "animate-h-in":"animate-h-out")}>
-                <label>Garage details</label>
+                <label>Parking details</label>
                 <FirstForm register={register} errors={errors}/>
             </div>
             <div id={"second_form_id"} className={"overflow-hidden w-full "+ (current_content === 2? "animate-h-in":"animate-h-out")}>

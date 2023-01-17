@@ -4,13 +4,13 @@ import {garageShape} from "../../context/DataContext";
 
 const GarageExitActivity = ({recentVehicleOut, garage}: { recentVehicleOut: vehicleInterface | null, garage:garageShape|null }) => {
     function computeCash(){
-        return "-"
+        return "400"
     }
     function computeHours(){
-        return "-"
+        return "1"
     }
     function computeMinutes(){
-        return "-"
+        return "60"
     }
     return (
         <div className={"flex flex-col gap-2 w-full"}>
