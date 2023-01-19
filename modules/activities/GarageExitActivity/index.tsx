@@ -1,16 +1,18 @@
 import vehicleInterface from "../../../interfaces/vehicle.interface";
 import Image from "next/image";
 import {garageShape} from "../../context/DataContext";
+import {getGarageMoreInfo} from "../../../utils/functions";
 
 const GarageExitActivity = ({recentVehicleOut, garage}: { recentVehicleOut: vehicleInterface | null, garage:garageShape|null }) => {
+    let moreInfo = getGarageMoreInfo(recentVehicleOut, garage);
     function computeCash(){
-        return "400"
+        return moreInfo?.money
     }
     function computeHours(){
-        return "1"
+        return moreInfo?.inHours
     }
     function computeMinutes(){
-        return "60"
+        return moreInfo?.totalMin.toFixed(2)
     }
     return (
         <div className={"flex flex-col gap-2 w-full"}>
