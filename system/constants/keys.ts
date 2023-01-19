@@ -3,6 +3,7 @@ const Keys = {
   USER_INFO:process.env.USER_INFO,
   DEFAULT_API:process.env.DEFAULT_API,
   ISSERVER: typeof window === 'undefined',
+  REDIRECT_LINK:"redirectign_key"
 };
 
 export default Keys;

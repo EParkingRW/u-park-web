@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import {useData} from "../../modules/context/DataContext";
 import UserMenu from "../UserMenu";
 import Modal from "../Modal";
+import Link from "next/link";
 
-const TopNavDashboard = () => {
+const TopNavDashboard = ({setSearchText}:{setSearchText?:(searchTxt:string)=>void}) => {
     const { profile } = useData();
     const router = useRouter();
     const [pathName,setPathName] = useState<string|undefined>(undefined)
@@ -48,17 +49,22 @@ const TopNavDashboard = () => {
     }
 
     return <div className={"w-full flex justify-between pt-1 flex-wrap gap-2"}>
-        <div className={"flex items-center"}>
-            <Image
-                width={"40"} height={40}
-                src={"/asserts/images/u_park_logo.svg"} alt={""}/>
-            <span className={"text-primary"}>
+        <Link href="/dashboard">
+            <div className={"flex items-center"}>
+                <Image
+                    width={"40"} height={40}
+                    src={"/asserts/images/u_park_logo.svg"} alt={""}/>
+                <span className={"text-primary"}>
             {pathName}
         </span>
-        </div>
+            </div>
+        </Link>
+
         {hideSearch ? null :
         <form className={"text-primary flex items-center gap-1 border-primary border-2 py-3 px-2 rounded-2xl min-w-[304px] "}>
-            <input className={"placeholder-primary border-none focus:border-none w-full"} placeholder={"can’t find "+(isAdminPage?"Company":"Garage+")+" ? search it here!"}/>
+            <input onChange={event => {
+                setSearchText && setSearchText(event.target.value)
+            }} className={"placeholder-primary border-none focus:border-none w-full"} placeholder={`can’t find ${(isAdminPage?"Company":"Parking")} ? search it here`}/>
             <span className="material-symbols-outlined rounded px-1 py-1 bg-primary text-white">search</span>
         </form>
         }
